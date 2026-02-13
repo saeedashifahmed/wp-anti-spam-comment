@@ -245,7 +245,7 @@ function wp_anti_spam_comment_settings_page()
         <div class="wpasc-stats-grid">
             <div class="wpasc-stat-card wpasc-stat-blocked">
                 <div class="wpasc-stat-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
@@ -253,12 +253,12 @@ function wp_anti_spam_comment_settings_page()
                 </div>
                 <div class="wpasc-stat-info">
                     <span class="wpasc-stat-number" data-count="<?php echo absint($stats['blocked_total']); ?>">0</span>
-                    <span class="wpasc-stat-label"><?php _e('Total Spam Blocked', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-label"><?php _e('Total Blocked', 'wp-anti-spam-comment'); ?></span>
                 </div>
             </div>
             <div class="wpasc-stat-card wpasc-stat-today">
                 <div class="wpasc-stat-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
@@ -273,7 +273,7 @@ function wp_anti_spam_comment_settings_page()
             </div>
             <div class="wpasc-stat-card wpasc-stat-status">
                 <div class="wpasc-stat-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <polyline points="22 4 12 14.01 9 11.01" />
@@ -281,12 +281,12 @@ function wp_anti_spam_comment_settings_page()
                 </div>
                 <div class="wpasc-stat-info">
                     <span class="wpasc-stat-status-text"><?php _e('Active', 'wp-anti-spam-comment'); ?></span>
-                    <span class="wpasc-stat-label"><?php _e('Protection Status', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-label"><?php _e('Protection', 'wp-anti-spam-comment'); ?></span>
                 </div>
             </div>
             <div class="wpasc-stat-card wpasc-stat-last">
                 <div class="wpasc-stat-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
@@ -302,7 +302,7 @@ function wp_anti_spam_comment_settings_page()
                         }
                         ?>
                     </span>
-                    <span class="wpasc-stat-label"><?php _e('Last Spam Blocked', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-label"><?php _e('Last Blocked', 'wp-anti-spam-comment'); ?></span>
                 </div>
             </div>
         </div>
