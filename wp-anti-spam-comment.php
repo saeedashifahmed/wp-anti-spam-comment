@@ -200,18 +200,23 @@ function wp_anti_spam_comment_admin_assets($hook)
         return;
     }
 
+    $admin_css_file = WP_ANTI_SPAM_COMMENT_DIR . 'admin/css/admin-style.css';
+    $admin_js_file = WP_ANTI_SPAM_COMMENT_DIR . 'admin/js/admin-script.js';
+    $admin_css_ver = file_exists($admin_css_file) ? (string) filemtime($admin_css_file) : WP_ANTI_SPAM_COMMENT_VERSION;
+    $admin_js_ver = file_exists($admin_js_file) ? (string) filemtime($admin_js_file) : WP_ANTI_SPAM_COMMENT_VERSION;
+
     wp_enqueue_style(
         'wp-anti-spam-comment-admin',
         WP_ANTI_SPAM_COMMENT_URL . 'admin/css/admin-style.css',
         array(),
-        WP_ANTI_SPAM_COMMENT_VERSION
+        $admin_css_ver
     );
 
     wp_enqueue_script(
         'wp-anti-spam-comment-admin-js',
         WP_ANTI_SPAM_COMMENT_URL . 'admin/js/admin-script.js',
         array(),
-        WP_ANTI_SPAM_COMMENT_VERSION,
+        $admin_js_ver,
         true
     );
 }
@@ -501,80 +506,88 @@ function wp_anti_spam_comment_settings_page()
             </div>
             <div class="wpasc-card-body wpasc-how-it-works">
 
-                <!-- Step 1: Hide -->
-                <div class="wpasc-step wpasc-step-root">
-                    <div class="wpasc-step-indicator">
-                        <div class="wpasc-step-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                                <line x1="1" y1="1" x2="23" y2="23" />
-                            </svg>
+                <div class="wpasc-how-tree">
+                    <div class="wpasc-tree-level wpasc-tree-level-root">
+                        <div class="wpasc-step wpasc-step-root">
+                            <div class="wpasc-step-indicator">
+                                <div class="wpasc-step-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                                        <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                                        <line x1="1" y1="1" x2="23" y2="23" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="wpasc-step-content">
+                                <h3>
+                                    <span class="wpasc-step-number">1</span>
+                                    <?php _e('Action URL Hidden', 'wp-anti-spam-comment'); ?>
+                                </h3>
+                                <p><?php _e('The comment form\'s action URL is stripped from the HTML source — bots scanning raw HTML find nothing to target.', 'wp-anti-spam-comment'); ?></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="wpasc-step-content">
-                        <h3>
-                            <span class="wpasc-step-number">1</span>
-                            <?php _e('Action URL Hidden', 'wp-anti-spam-comment'); ?>
-                        </h3>
-                        <p><?php _e('The comment form\'s action URL is stripped from the HTML source — bots scanning raw HTML find nothing to target.', 'wp-anti-spam-comment'); ?></p>
-                    </div>
-                </div>
 
-                <!-- Step 2: Detect -->
-                <div class="wpasc-step wpasc-step-left">
-                    <div class="wpasc-step-indicator">
-                        <div class="wpasc-step-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                                <line x1="12" y1="2" x2="12" y2="4" />
-                            </svg>
+                    <div class="wpasc-tree-branches">
+                        <div class="wpasc-tree-branch wpasc-tree-left">
+                            <div class="wpasc-step wpasc-step-left">
+                                <div class="wpasc-step-indicator">
+                                    <div class="wpasc-step-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                                            <line x1="12" y1="2" x2="12" y2="4" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="wpasc-step-content">
+                                    <h3>
+                                        <span class="wpasc-step-number">2</span>
+                                        <?php _e('Human Interaction Detected', 'wp-anti-spam-comment'); ?>
+                                    </h3>
+                                    <p><?php _e('Real user activity — scrolling, mouse movement, or focus — triggers JavaScript to restore the form action with a unique hash token.', 'wp-anti-spam-comment'); ?></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="wpasc-step-content">
-                        <h3>
-                            <span class="wpasc-step-number">2</span>
-                            <?php _e('Human Interaction Detected', 'wp-anti-spam-comment'); ?>
-                        </h3>
-                        <p><?php _e('Real user activity — scrolling, mouse movement, or focus — triggers JavaScript to restore the form action with a unique hash token.', 'wp-anti-spam-comment'); ?></p>
-                    </div>
-                </div>
 
-                <!-- Step 3: Validate -->
-                <div class="wpasc-step wpasc-step-right">
-                    <div class="wpasc-step-indicator">
-                        <div class="wpasc-step-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                <path d="M9 12l2 2 4-4" />
-                            </svg>
+                        <div class="wpasc-tree-branch wpasc-tree-right">
+                            <div class="wpasc-step wpasc-step-right">
+                                <div class="wpasc-step-indicator">
+                                    <div class="wpasc-step-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                            <path d="M9 12l2 2 4-4" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="wpasc-step-content">
+                                    <h3>
+                                        <span class="wpasc-step-number">3</span>
+                                        <?php _e('Multi-Layer Validation', 'wp-anti-spam-comment'); ?>
+                                    </h3>
+                                    <p><?php _e('Hash token, honeypot field, and submission timing are all verified server-side before any comment passes through.', 'wp-anti-spam-comment'); ?></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="wpasc-step-content">
-                        <h3>
-                            <span class="wpasc-step-number">3</span>
-                            <?php _e('Multi-Layer Validation', 'wp-anti-spam-comment'); ?>
-                        </h3>
-                        <p><?php _e('Hash token, honeypot field, and submission timing are all verified server-side before any comment passes through.', 'wp-anti-spam-comment'); ?></p>
-                    </div>
-                </div>
 
-                <!-- Step 4: Block -->
-                <div class="wpasc-step wpasc-step-final">
-                    <div class="wpasc-step-indicator">
-                        <div class="wpasc-step-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
+                    <div class="wpasc-tree-level wpasc-tree-level-final">
+                        <div class="wpasc-step wpasc-step-final">
+                            <div class="wpasc-step-indicator">
+                                <div class="wpasc-step-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="wpasc-step-content">
+                                <h3>
+                                    <span class="wpasc-step-number">4</span>
+                                    <?php _e('Spam Eliminated', 'wp-anti-spam-comment'); ?>
+                                </h3>
+                                <p><?php _e('Failed submissions get an instant 403 response. Zero spam reaches your database — your comments stay clean.', 'wp-anti-spam-comment'); ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="wpasc-step-content">
-                        <h3>
-                            <span class="wpasc-step-number">4</span>
-                            <?php _e('Spam Eliminated', 'wp-anti-spam-comment'); ?>
-                        </h3>
-                        <p><?php _e('Failed submissions get an instant 403 response. Zero spam reaches your database — your comments stay clean.', 'wp-anti-spam-comment'); ?></p>
                     </div>
                 </div>
 
