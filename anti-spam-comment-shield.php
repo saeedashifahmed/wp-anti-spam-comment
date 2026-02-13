@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name:       WP Anti-Spam Comment
- * Plugin URI:        https://wordpress.org/plugins/wp-anti-spam-comment/
+ * Plugin Name:       Anti-Spam Comment Shield
+ * Plugin URI:        https://wordpress.org/plugins/anti-spam-comment-shield/
  * Description:       Advanced, lightweight, and GDPR-compliant anti-spam protection for WordPress comments. Zero configuration needed — just activate and forget spam forever.
  * Author:            Rabbit Builds (Saeed Ashif Ahmed)
  * Author URI:        https://rabbitbuilds.com/
  * Version:           2.0.2
- * Text Domain:       wp-anti-spam-comment
+ * Text Domain:       anti-spam-comment-shield
  * Domain Path:       /languages
  * Requires at least: 5.0
  * Requires PHP:      7.4
@@ -26,7 +26,7 @@ define('WP_ANTI_SPAM_COMMENT_URL', plugin_dir_url(__FILE__));
 // Generate a unique key from NONCE_SALT or DOCUMENT_ROOT
 $wp_anti_spam_comment_key_source = defined('NONCE_SALT') && NONCE_SALT
     ? NONCE_SALT
-    : (isset($_SERVER['DOCUMENT_ROOT']) ? (string) $_SERVER['DOCUMENT_ROOT'] : ABSPATH);
+    : (isset($_SERVER['DOCUMENT_ROOT']) ? sanitize_text_field(wp_unslash($_SERVER['DOCUMENT_ROOT'])) : ABSPATH);
 define('WP_ANTI_SPAM_COMMENT_UNIQUE_KEY', md5($wp_anti_spam_comment_key_source));
 
 /**
@@ -39,7 +39,7 @@ function wp_anti_spam_comment_get_defaults()
         'enable_honeypot' => 1,
         'enable_time_check' => 1,
         'min_submit_time' => 3,
-        'blocked_message' => __('Your comment was blocked by our anti-spam protection. If you believe this is an error, please try again.', 'wp-anti-spam-comment'),
+        'blocked_message' => __('Your comment was blocked by our anti-spam protection. If you believe this is an error, please try again.', 'anti-spam-comment-shield'),
         'enable_rest_protect' => 1,
     );
 }
@@ -84,7 +84,7 @@ register_activation_hook(__FILE__, 'wp_anti_spam_comment_activation_hook');
 
 function wp_anti_spam_comment_activation_hook()
 {
-    set_transient('wp-anti-spam-comment-activation-notice', true, 5);
+    set_transient('anti-spam-comment-shield-activation-notice', true, 5);
 
     // Initialize stats if not existing
     if (false === get_option('wp_anti_spam_comment_stats')) {
@@ -105,7 +105,7 @@ register_deactivation_hook(__FILE__, 'wp_anti_spam_comment_deactivation_hook');
 function wp_anti_spam_comment_deactivation_hook()
 {
     // Clean up transients only; preserve stats and settings
-    delete_transient('wp-anti-spam-comment-activation-notice');
+    delete_transient('anti-spam-comment-shield-activation-notice');
 }
 
 /**
@@ -115,17 +115,17 @@ add_action('admin_notices', 'wp_anti_spam_comment_activation_notice');
 
 function wp_anti_spam_comment_activation_notice()
 {
-    if (get_transient('wp-anti-spam-comment-activation-notice')) {
+    if (get_transient('anti-spam-comment-shield-activation-notice')) {
         ?>
         <div class="notice notice-success is-dismissible" style="border-left-color: #DC2626;">
             <p>
-                <strong>🛡️ <?php esc_html_e('WP Anti-Spam Comment', 'wp-anti-spam-comment'); ?></strong>
-                <?php esc_html_e('is now active!', 'wp-anti-spam-comment'); ?>
-                <?php echo wp_kses_post(__('Please <strong>clear your page cache</strong> for the protection to take effect.', 'wp-anti-spam-comment')); ?>
+                <strong>🛡️ <?php esc_html_e('Anti-Spam Comment Shield', 'anti-spam-comment-shield'); ?></strong>
+                <?php esc_html_e('is now active!', 'anti-spam-comment-shield'); ?>
+                <?php echo wp_kses_post(__('Please <strong>clear your page cache</strong> for the protection to take effect.', 'anti-spam-comment-shield')); ?>
             </p>
         </div>
         <?php
-        delete_transient('wp-anti-spam-comment-activation-notice');
+        delete_transient('anti-spam-comment-shield-activation-notice');
     }
 }
 
@@ -137,8 +137,8 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'wp_anti_spam_com
 function wp_anti_spam_comment_action_links($links)
 {
     $custom_links = array(
-        '<a href="' . esc_url(admin_url('options-general.php?page=wp-anti-spam-comment')) . '">' . __('Settings', 'wp-anti-spam-comment') . '</a>',
-        '<a rel="noopener" title="Technical Support" href="' . esc_url('https://rabbitbuilds.com/contact/') . '" target="_blank">' . __('Get Support', 'wp-anti-spam-comment') . '</a>',
+        '<a href="' . esc_url(admin_url('options-general.php?page=anti-spam-comment-shield')) . '">' . esc_html__('Settings', 'anti-spam-comment-shield') . '</a>',
+        '<a rel="noopener" title="Technical Support" href="' . esc_url('https://rabbitbuilds.com/contact/') . '" target="_blank">' . esc_html__('Get Support', 'anti-spam-comment-shield') . '</a>',
     );
     return array_merge($custom_links, $links);
 }
@@ -151,10 +151,10 @@ add_action('admin_menu', 'wp_anti_spam_comment_admin_menu');
 function wp_anti_spam_comment_admin_menu()
 {
     add_options_page(
-        __('WP Anti-Spam Comment', 'wp-anti-spam-comment'),
-        __('WP Anti-Spam', 'wp-anti-spam-comment'),
+        __('Anti-Spam Comment Shield', 'anti-spam-comment-shield'),
+        __('Anti-Spam Shield', 'anti-spam-comment-shield'),
         'manage_options',
-        'wp-anti-spam-comment',
+        'anti-spam-comment-shield',
         'wp_anti_spam_comment_settings_page'
     );
 }
@@ -196,7 +196,7 @@ add_action('admin_enqueue_scripts', 'wp_anti_spam_comment_admin_assets');
 
 function wp_anti_spam_comment_admin_assets($hook)
 {
-    if ('settings_page_wp-anti-spam-comment' !== $hook) {
+    if ('settings_page_anti-spam-comment-shield' !== $hook) {
         return;
     }
 
@@ -206,14 +206,14 @@ function wp_anti_spam_comment_admin_assets($hook)
     $admin_js_ver = file_exists($admin_js_file) ? (string) filemtime($admin_js_file) : WP_ANTI_SPAM_COMMENT_VERSION;
 
     wp_enqueue_style(
-        'wp-anti-spam-comment-admin',
+        'anti-spam-comment-shield-admin',
         WP_ANTI_SPAM_COMMENT_URL . 'admin/css/admin-style.css',
         array(),
         $admin_css_ver
     );
 
     wp_enqueue_script(
-        'wp-anti-spam-comment-admin-js',
+        'anti-spam-comment-shield-admin-js',
         WP_ANTI_SPAM_COMMENT_URL . 'admin/js/admin-script.js',
         array(),
         $admin_js_ver,
@@ -243,9 +243,9 @@ function wp_anti_spam_comment_settings_page()
                     </svg>
                 </div>
                 <div>
-                    <h1 class="wpasc-title"><?php _e('WP Anti-Spam Comment', 'wp-anti-spam-comment'); ?></h1>
+                    <h1 class="wpasc-title"><?php esc_html_e('Anti-Spam Comment Shield', 'anti-spam-comment-shield'); ?></h1>
                     <p class="wpasc-subtitle">
-                        <?php _e('Advanced spam protection for WordPress comments', 'wp-anti-spam-comment'); ?></p>
+                        <?php esc_html_e('Advanced spam protection for WordPress comments', 'anti-spam-comment-shield'); ?></p>
                 </div>
                 <span class="wpasc-version">v<?php echo esc_html(WP_ANTI_SPAM_COMMENT_VERSION); ?></span>
             </div>
@@ -263,7 +263,7 @@ function wp_anti_spam_comment_settings_page()
                 </div>
                 <div class="wpasc-stat-info">
                     <span class="wpasc-stat-number" data-count="<?php echo absint($stats['blocked_total']); ?>">0</span>
-                    <span class="wpasc-stat-label"><?php _e('Total Blocked', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-label"><?php esc_html_e('Total Blocked', 'anti-spam-comment-shield'); ?></span>
                 </div>
             </div>
             <div class="wpasc-stat-card wpasc-stat-today">
@@ -278,7 +278,7 @@ function wp_anti_spam_comment_settings_page()
                 </div>
                 <div class="wpasc-stat-info">
                     <span class="wpasc-stat-number" data-count="<?php echo absint($stats['blocked_today']); ?>">0</span>
-                    <span class="wpasc-stat-label"><?php _e('Blocked Today', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-label"><?php esc_html_e('Blocked Today', 'anti-spam-comment-shield'); ?></span>
                 </div>
             </div>
             <div class="wpasc-stat-card wpasc-stat-status">
@@ -290,8 +290,8 @@ function wp_anti_spam_comment_settings_page()
                     </svg>
                 </div>
                 <div class="wpasc-stat-info">
-                    <span class="wpasc-stat-status-text"><?php _e('Active', 'wp-anti-spam-comment'); ?></span>
-                    <span class="wpasc-stat-label"><?php _e('Protection', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-status-text"><?php esc_html_e('Active', 'anti-spam-comment-shield'); ?></span>
+                    <span class="wpasc-stat-label"><?php esc_html_e('Protection', 'anti-spam-comment-shield'); ?></span>
                 </div>
             </div>
             <div class="wpasc-stat-card wpasc-stat-last">
@@ -307,13 +307,13 @@ function wp_anti_spam_comment_settings_page()
                         <?php
                         $last_blocked_ts = !empty($stats['last_blocked_at']) ? strtotime($stats['last_blocked_at']) : false;
                         if ($last_blocked_ts) {
-                            echo esc_html(human_time_diff($last_blocked_ts, current_time('timestamp')) . ' ' . __('ago', 'wp-anti-spam-comment'));
+                            echo esc_html(human_time_diff($last_blocked_ts, current_time('timestamp')) . ' ' . __('ago', 'anti-spam-comment-shield'));
                         } else {
-                            esc_html_e('No spam yet', 'wp-anti-spam-comment');
+                            esc_html_e('No spam yet', 'anti-spam-comment-shield');
                         }
                         ?>
                     </span>
-                    <span class="wpasc-stat-label"><?php _e('Last Blocked', 'wp-anti-spam-comment'); ?></span>
+                    <span class="wpasc-stat-label"><?php esc_html_e('Last Blocked', 'anti-spam-comment-shield'); ?></span>
                 </div>
             </div>
         </div>
@@ -331,10 +331,10 @@ function wp_anti_spam_comment_settings_page()
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <?php _e('Protection Modules', 'wp-anti-spam-comment'); ?>
+                        <?php esc_html_e('Protection Modules', 'anti-spam-comment-shield'); ?>
                     </h2>
                     <p class="wpasc-card-desc">
-                        <?php _e('Enable or disable individual spam protection layers.', 'wp-anti-spam-comment'); ?></p>
+                        <?php esc_html_e('Enable or disable individual spam protection layers.', 'anti-spam-comment-shield'); ?></p>
                 </div>
                 <div class="wpasc-card-body">
 
@@ -342,12 +342,12 @@ function wp_anti_spam_comment_settings_page()
                     <div class="wpasc-setting-row">
                         <div class="wpasc-setting-info">
                             <label class="wpasc-setting-title" for="enable_hash_check">
-                                <?php _e('Hash-Based Verification', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Hash-Based Verification', 'anti-spam-comment-shield'); ?>
                                 <span
-                                    class="wpasc-badge wpasc-badge-recommended"><?php _e('Core', 'wp-anti-spam-comment'); ?></span>
+                                    class="wpasc-badge wpasc-badge-recommended"><?php esc_html_e('Core', 'anti-spam-comment-shield'); ?></span>
                             </label>
                             <p class="wpasc-setting-desc">
-                                <?php _e('Blocks bots by requiring a unique hash token in the comment form action URL — only injected via JavaScript when a real user interacts with the page.', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Blocks bots by requiring a unique hash token in the comment form action URL — only injected via JavaScript when a real user interacts with the page.', 'anti-spam-comment-shield'); ?>
                             </p>
                         </div>
                         <label class="wpasc-toggle">
@@ -361,12 +361,12 @@ function wp_anti_spam_comment_settings_page()
                     <div class="wpasc-setting-row">
                         <div class="wpasc-setting-info">
                             <label class="wpasc-setting-title" for="enable_honeypot">
-                                <?php _e('Honeypot Trap', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Honeypot Trap', 'anti-spam-comment-shield'); ?>
                                 <span
-                                    class="wpasc-badge wpasc-badge-new"><?php _e('New', 'wp-anti-spam-comment'); ?></span>
+                                    class="wpasc-badge wpasc-badge-new"><?php esc_html_e('New', 'anti-spam-comment-shield'); ?></span>
                             </label>
                             <p class="wpasc-setting-desc">
-                                <?php _e('Adds a hidden field to the comment form that only bots will fill out. Human visitors never see it.', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Adds a hidden field to the comment form that only bots will fill out. Human visitors never see it.', 'anti-spam-comment-shield'); ?>
                             </p>
                         </div>
                         <label class="wpasc-toggle">
@@ -380,14 +380,15 @@ function wp_anti_spam_comment_settings_page()
                     <div class="wpasc-setting-row">
                         <div class="wpasc-setting-info">
                             <label class="wpasc-setting-title" for="enable_time_check">
-                                <?php _e('Time-Based Check', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Time-Based Check', 'anti-spam-comment-shield'); ?>
                                 <span
-                                    class="wpasc-badge wpasc-badge-new"><?php _e('New', 'wp-anti-spam-comment'); ?></span>
+                                    class="wpasc-badge wpasc-badge-new"><?php esc_html_e('New', 'anti-spam-comment-shield'); ?></span>
                             </label>
                             <p class="wpasc-setting-desc">
                                 <?php
                                 printf(
-                                    __('Rejects comments submitted within %s seconds of page load. Real users take at least a few seconds to type.', 'wp-anti-spam-comment'),
+                                    /* translators: %s is the minimum number of seconds required before a comment can be submitted. */
+                                    __('Rejects comments submitted within %s seconds of page load. Real users take at least a few seconds to type.', 'anti-spam-comment-shield'),
                                     '<strong>' . absint($options['min_submit_time']) . '</strong>'
                                 );
                                 ?>
@@ -404,12 +405,12 @@ function wp_anti_spam_comment_settings_page()
                     <div class="wpasc-setting-row">
                         <div class="wpasc-setting-info">
                             <label class="wpasc-setting-title" for="enable_rest_protect">
-                                <?php _e('REST API Protection', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('REST API Protection', 'anti-spam-comment-shield'); ?>
                                 <span
-                                    class="wpasc-badge wpasc-badge-new"><?php _e('New', 'wp-anti-spam-comment'); ?></span>
+                                    class="wpasc-badge wpasc-badge-new"><?php esc_html_e('New', 'anti-spam-comment-shield'); ?></span>
                             </label>
                             <p class="wpasc-setting-desc">
-                                <?php _e('Blocks unauthenticated comment creation through the WordPress REST API endpoint.', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Blocks unauthenticated comment creation through the WordPress REST API endpoint.', 'anti-spam-comment-shield'); ?>
                             </p>
                         </div>
                         <label class="wpasc-toggle">
@@ -432,9 +433,9 @@ function wp_anti_spam_comment_settings_page()
                             <path
                                 d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
                         </svg>
-                        <?php _e('Advanced Settings', 'wp-anti-spam-comment'); ?>
+                        <?php esc_html_e('Advanced Settings', 'anti-spam-comment-shield'); ?>
                     </h2>
-                    <p class="wpasc-card-desc"><?php _e('Fine-tune the anti-spam behavior.', 'wp-anti-spam-comment'); ?>
+                    <p class="wpasc-card-desc"><?php esc_html_e('Fine-tune the anti-spam behavior.', 'anti-spam-comment-shield'); ?>
                     </p>
                 </div>
                 <div class="wpasc-card-body">
@@ -443,16 +444,16 @@ function wp_anti_spam_comment_settings_page()
                     <div class="wpasc-setting-row">
                         <div class="wpasc-setting-info">
                             <label class="wpasc-setting-title"
-                                for="min_submit_time"><?php _e('Minimum Submit Time (seconds)', 'wp-anti-spam-comment'); ?></label>
+                                for="min_submit_time"><?php esc_html_e('Minimum Submit Time (seconds)', 'anti-spam-comment-shield'); ?></label>
                             <p class="wpasc-setting-desc">
-                                <?php _e('Comments submitted faster than this threshold will be blocked. Range: 1–30 seconds.', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('Comments submitted faster than this threshold will be blocked. Range: 1–30 seconds.', 'anti-spam-comment-shield'); ?>
                             </p>
                         </div>
                         <div class="wpasc-input-wrapper">
                             <input type="number" name="wp_anti_spam_comment_settings[min_submit_time]" id="min_submit_time"
                                 value="<?php echo absint($options['min_submit_time']); ?>" min="1" max="30"
                                 class="wpasc-input-number" />
-                            <span class="wpasc-input-suffix"><?php _e('sec', 'wp-anti-spam-comment'); ?></span>
+                            <span class="wpasc-input-suffix"><?php esc_html_e('sec', 'anti-spam-comment-shield'); ?></span>
                         </div>
                     </div>
 
@@ -460,9 +461,9 @@ function wp_anti_spam_comment_settings_page()
                     <div class="wpasc-setting-row wpasc-setting-row-full">
                         <div class="wpasc-setting-info">
                             <label class="wpasc-setting-title"
-                                for="blocked_message"><?php _e('Custom Blocked Message', 'wp-anti-spam-comment'); ?></label>
+                                for="blocked_message"><?php esc_html_e('Custom Blocked Message', 'anti-spam-comment-shield'); ?></label>
                             <p class="wpasc-setting-desc">
-                                <?php _e('The message displayed when a comment is blocked as spam.', 'wp-anti-spam-comment'); ?>
+                                <?php esc_html_e('The message displayed when a comment is blocked as spam.', 'anti-spam-comment-shield'); ?>
                             </p>
                         </div>
                         <textarea name="wp_anti_spam_comment_settings[blocked_message]" id="blocked_message"
@@ -475,10 +476,10 @@ function wp_anti_spam_comment_settings_page()
 
             <!-- Save Button -->
             <div class="wpasc-save-bar">
-                <?php submit_button(__('Save Settings', 'wp-anti-spam-comment'), 'primary wpasc-save-btn', 'submit', false); ?>
+                <?php submit_button(__('Save Settings', 'anti-spam-comment-shield'), 'primary wpasc-save-btn', 'submit', false); ?>
                 <button type="button" class="button wpasc-reset-btn"
-                    onclick="if(confirm('<?php echo esc_js(__('Reset all settings to default?', 'wp-anti-spam-comment')); ?>')) { document.getElementById('wpasc-reset-form').submit(); }">
-                    <?php _e('Reset to Defaults', 'wp-anti-spam-comment'); ?>
+                    onclick="if(confirm('<?php echo esc_js(__('Reset all settings to default?', 'anti-spam-comment-shield')); ?>')) { document.getElementById('wpasc-reset-form').submit(); }">
+                    <?php esc_html_e('Reset to Defaults', 'anti-spam-comment-shield'); ?>
                 </button>
             </div>
 
@@ -500,9 +501,9 @@ function wp_anti_spam_comment_settings_page()
                         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
                         <line x1="12" y1="17" x2="12.01" y2="17" />
                     </svg>
-                    <?php _e('How It Works', 'wp-anti-spam-comment'); ?>
+                    <?php esc_html_e('How It Works', 'anti-spam-comment-shield'); ?>
                 </h2>
-                <p class="wpasc-card-desc"><?php _e('Your comments are protected through a 4-step defense pipeline.', 'wp-anti-spam-comment'); ?></p>
+                <p class="wpasc-card-desc"><?php esc_html_e('Your comments are protected through a 4-step defense pipeline.', 'anti-spam-comment-shield'); ?></p>
             </div>
             <div class="wpasc-card-body wpasc-how-it-works">
 
@@ -521,9 +522,9 @@ function wp_anti_spam_comment_settings_page()
                             <div class="wpasc-step-content">
                                 <h3>
                                     <span class="wpasc-step-number">1</span>
-                                    <?php _e('Action URL Hidden', 'wp-anti-spam-comment'); ?>
+                                    <?php esc_html_e('Action URL Hidden', 'anti-spam-comment-shield'); ?>
                                 </h3>
-                                <p><?php _e('The comment form\'s action URL is stripped from the HTML source — bots scanning raw HTML find nothing to target.', 'wp-anti-spam-comment'); ?></p>
+                                <p><?php esc_html_e('The comment form\'s action URL is stripped from the HTML source — bots scanning raw HTML find nothing to target.', 'anti-spam-comment-shield'); ?></p>
                             </div>
                         </div>
                     </div>
@@ -543,9 +544,9 @@ function wp_anti_spam_comment_settings_page()
                                 <div class="wpasc-step-content">
                                     <h3>
                                         <span class="wpasc-step-number">2</span>
-                                        <?php _e('Human Interaction Detected', 'wp-anti-spam-comment'); ?>
+                                        <?php esc_html_e('Human Interaction Detected', 'anti-spam-comment-shield'); ?>
                                     </h3>
-                                    <p><?php _e('Real user activity — scrolling, mouse movement, or focus — triggers JavaScript to restore the form action with a unique hash token.', 'wp-anti-spam-comment'); ?></p>
+                                    <p><?php esc_html_e('Real user activity — scrolling, mouse movement, or focus — triggers JavaScript to restore the form action with a unique hash token.', 'anti-spam-comment-shield'); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -563,9 +564,9 @@ function wp_anti_spam_comment_settings_page()
                                 <div class="wpasc-step-content">
                                     <h3>
                                         <span class="wpasc-step-number">3</span>
-                                        <?php _e('Multi-Layer Validation', 'wp-anti-spam-comment'); ?>
+                                        <?php esc_html_e('Multi-Layer Validation', 'anti-spam-comment-shield'); ?>
                                     </h3>
-                                    <p><?php _e('Hash token, honeypot field, and submission timing are all verified server-side before any comment passes through.', 'wp-anti-spam-comment'); ?></p>
+                                    <p><?php esc_html_e('Hash token, honeypot field, and submission timing are all verified server-side before any comment passes through.', 'anti-spam-comment-shield'); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -583,9 +584,9 @@ function wp_anti_spam_comment_settings_page()
                             <div class="wpasc-step-content">
                                 <h3>
                                     <span class="wpasc-step-number">4</span>
-                                    <?php _e('Spam Eliminated', 'wp-anti-spam-comment'); ?>
+                                    <?php esc_html_e('Spam Eliminated', 'anti-spam-comment-shield'); ?>
                                 </h3>
-                                <p><?php _e('Failed submissions get an instant 403 response. Zero spam reaches your database — your comments stay clean.', 'wp-anti-spam-comment'); ?></p>
+                                <p><?php esc_html_e('Failed submissions get an instant 403 response. Zero spam reaches your database — your comments stay clean.', 'anti-spam-comment-shield'); ?></p>
                             </div>
                         </div>
                     </div>
@@ -599,7 +600,7 @@ function wp_anti_spam_comment_settings_page()
             <p>
                 <?php
                 printf(
-                    __('Made with ❤️ by %s • GDPR Compliant • No External Requests • ~200 Bytes Inline JS', 'wp-anti-spam-comment'),
+                    __('Made with ❤️ by %s • GDPR Compliant • No External Requests • ~200 Bytes Inline JS', 'anti-spam-comment-shield'),
                     '<a href="https://rabbitbuilds.com/" target="_blank" rel="noopener">Rabbit Builds (Saeed Ashif Ahmed)</a>'
                 );
                 ?>
@@ -619,8 +620,8 @@ function wp_anti_spam_comment_handle_reset()
 {
     if (!current_user_can('manage_options')) {
         wp_die(
-            esc_html__('Unauthorized', 'wp-anti-spam-comment'),
-            esc_html__('Error', 'wp-anti-spam-comment'),
+            esc_html__('Unauthorized', 'anti-spam-comment-shield'),
+            esc_html__('Error', 'anti-spam-comment-shield'),
             array('response' => 403)
         );
     }
@@ -629,7 +630,7 @@ function wp_anti_spam_comment_handle_reset()
 
     update_option('wp_anti_spam_comment_settings', wp_anti_spam_comment_get_defaults());
 
-    wp_safe_redirect(admin_url('options-general.php?page=wp-anti-spam-comment&reset=1'));
+    wp_safe_redirect(admin_url('options-general.php?page=anti-spam-comment-shield&reset=1'));
     exit;
 }
 
@@ -643,10 +644,10 @@ function wp_anti_spam_comment_reset_notice()
     $page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
     $reset = isset($_GET['reset']) ? sanitize_text_field(wp_unslash($_GET['reset'])) : '';
 
-    if ('wp-anti-spam-comment' === $page && '1' === $reset) {
+    if ('anti-spam-comment-shield' === $page && '1' === $reset) {
         ?>
         <div class="notice notice-success is-dismissible">
-            <p><?php esc_html_e('Settings have been reset to defaults.', 'wp-anti-spam-comment'); ?></p>
+            <p><?php esc_html_e('Settings have been reset to defaults.', 'anti-spam-comment-shield'); ?></p>
         </div>
         <?php
     }
@@ -711,7 +712,7 @@ function wp_anti_spam_comment_inject_js()
     // Time-based: prevent form submit if too fast
     if ($options['enable_time_check']) {
         echo "f.addEventListener('submit',function(e){\n";
-        echo "if(ts.value&&(Date.now()-parseInt(ts.value,10))<t*1000){e.preventDefault();alert('" . esc_js(__('Please wait a moment before submitting your comment.', 'wp-anti-spam-comment')) . "');}\n";
+        echo "if(ts.value&&(Date.now()-parseInt(ts.value,10))<t*1000){e.preventDefault();alert('" . esc_js(__('Please wait a moment before submitting your comment.', 'anti-spam-comment-shield')) . "');}\n";
         echo "});\n";
     }
 
@@ -730,7 +731,8 @@ if ($wp_anti_spam_options['enable_honeypot']) {
 function wp_anti_spam_comment_honeypot_field()
 {
     echo '<p style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">';
-    echo '<label for="wpasc_website_url">' . __('Website URL', 'wp-anti-spam-comment') . '</label>';
+    echo '<label for="wpasc_website_url">' . esc_html__('Website URL', 'anti-spam-comment-shield') . '</label>';
+    echo '<input type="hidden" name="_wpasc_nonce" value="' . esc_attr(wp_create_nonce('wpasc_comment_nonce')) . '" />';
     echo '<input type="text" name="wpasc_website_url" id="wpasc_website_url" value="" tabindex="-1" autocomplete="off" />';
     echo '</p>';
 }
@@ -744,8 +746,13 @@ if ($wp_anti_spam_options['enable_honeypot']) {
 
 function wp_anti_spam_comment_check_honeypot($commentdata)
 {
+    $nonce = isset($_POST['_wpasc_nonce']) ? sanitize_text_field(wp_unslash($_POST['_wpasc_nonce'])) : '';
+    if (!wp_verify_nonce($nonce, 'wpasc_comment_nonce')) {
+        return $commentdata;
+    }
+
     $honeypot_value = isset($_POST['wpasc_website_url'])
-        ? trim((string) wp_unslash($_POST['wpasc_website_url']))
+        ? sanitize_text_field(trim((string) wp_unslash($_POST['wpasc_website_url'])))
         : '';
 
     if ('' !== $honeypot_value) {
@@ -765,6 +772,11 @@ if ($wp_anti_spam_options['enable_time_check']) {
 function wp_anti_spam_comment_check_time($commentdata)
 {
     $options = wp_anti_spam_comment_get_options();
+    $nonce = isset($_POST['_wpasc_nonce']) ? sanitize_text_field(wp_unslash($_POST['_wpasc_nonce'])) : '';
+    if (!wp_verify_nonce($nonce, 'wpasc_comment_nonce')) {
+        return $commentdata;
+    }
+
     if (!isset($_POST['_wpasc_ts'])) {
         return $commentdata;
     }
@@ -800,7 +812,7 @@ function wp_anti_spam_comment_rest_protect($prepared_comment, $_request)
         wp_anti_spam_comment_record_block();
         return new WP_Error(
             'rest_comment_spam_blocked',
-            __('Comment blocked by WP Anti-Spam Comment.', 'wp-anti-spam-comment'),
+            __('Comment blocked by Anti-Spam Comment Shield.', 'anti-spam-comment-shield'),
             array('status' => 403)
         );
     }
@@ -816,7 +828,7 @@ if ($wp_anti_spam_options['enable_hash_check']) {
 
 function wp_anti_spam_comment_validate_hash_request()
 {
-    $query_string = isset($_SERVER['QUERY_STRING']) ? (string) wp_unslash($_SERVER['QUERY_STRING']) : '';
+    $query_string = isset($_SERVER['QUERY_STRING']) ? sanitize_text_field(wp_unslash($_SERVER['QUERY_STRING'])) : '';
     $has_key = hash_equals(WP_ANTI_SPAM_COMMENT_UNIQUE_KEY, $query_string);
 
     $referrer = wp_get_raw_referer();
@@ -841,13 +853,13 @@ function wp_anti_spam_comment_block_response()
     $options = wp_anti_spam_comment_get_options();
     $message = !empty($options['blocked_message'])
         ? $options['blocked_message']
-        : __('Your comment was blocked by our anti-spam protection.', 'wp-anti-spam-comment');
+        : __('Your comment was blocked by our anti-spam protection.', 'anti-spam-comment-shield');
 
     status_header(403);
     nocache_headers();
 
     exit(
-        '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' . esc_html__('Blocked', 'wp-anti-spam-comment') . '</title>'
+        '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' . esc_html__('Blocked', 'anti-spam-comment-shield') . '</title>'
         . '<style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f0f2f5;color:#1a1a2e;}'
         . '.box{background:#fff;padding:40px 50px;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.08);text-align:center;max-width:480px;}'
         . '.icon{font-size:48px;margin-bottom:16px;}'
@@ -856,9 +868,9 @@ function wp_anti_spam_comment_block_response()
         . '.hint{font-size:13px;color:#999;border-top:1px solid #eee;padding-top:16px;}'
         . '</style></head><body><div class="box">'
         . '<div class="icon">🛡️</div>'
-        . '<h1>' . esc_html__('Spam Blocked', 'wp-anti-spam-comment') . '</h1>'
+        . '<h1>' . esc_html__('Spam Blocked', 'anti-spam-comment-shield') . '</h1>'
         . '<p>' . esc_html($message) . '</p>'
-        . '<p class="hint">' . esc_html__('If you are a site admin, please clear your page cache after activating the plugin.', 'wp-anti-spam-comment') . '</p>'
+        . '<p class="hint">' . esc_html__('If you are a site admin, please clear your page cache after activating the plugin.', 'anti-spam-comment-shield') . '</p>'
         . '</div></body></html>'
     );
 }
@@ -897,21 +909,11 @@ function wp_anti_spam_comment_admin_bar($wp_admin_bar)
     $stats = wp_anti_spam_comment_get_stats(true);
 
     $wp_admin_bar->add_node(array(
-        'id' => 'wp-anti-spam-comment',
-        'title' => '🛡️ ' . number_format_i18n(absint($stats['blocked_total'])) . ' ' . __('spam blocked', 'wp-anti-spam-comment'),
-        'href' => admin_url('options-general.php?page=wp-anti-spam-comment'),
+        'id' => 'anti-spam-comment-shield',
+        'title' => '🛡️ ' . number_format_i18n(absint($stats['blocked_total'])) . ' ' . esc_html__('spam blocked', 'anti-spam-comment-shield'),
+        'href' => admin_url('options-general.php?page=anti-spam-comment-shield'),
         'meta' => array(
-            'title' => __('WP Anti-Spam Comment — Total spam blocked', 'wp-anti-spam-comment'),
+            'title' => esc_html__('Anti-Spam Comment Shield — Total spam blocked', 'anti-spam-comment-shield'),
         ),
     ));
-}
-
-/**
- * ─── Load Text Domain ───────────────────────────────────────────────────────
- */
-add_action('plugins_loaded', 'wp_anti_spam_comment_load_textdomain');
-
-function wp_anti_spam_comment_load_textdomain()
-{
-    load_plugin_textdomain('wp-anti-spam-comment', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 }

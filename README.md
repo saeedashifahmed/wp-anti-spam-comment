@@ -2,9 +2,9 @@
 
 #### Advanced, lightweight, GDPR-compliant anti-spam protection for WordPress comments. No setup required.
 
-![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dd/wp-anti-spam-comment?&color=6C5CE7&style=for-the-badge&labelColor=2d3436&cacheSeconds=300) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/wp-anti-spam-comment?style=for-the-badge&labelColor=2d3436&cacheSeconds=300&&color=6C5CE7)
+![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dd/anti-spam-comment-shield?&color=6C5CE7&style=for-the-badge&labelColor=2d3436&cacheSeconds=300) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/anti-spam-comment-shield?style=for-the-badge&labelColor=2d3436&cacheSeconds=300&&color=6C5CE7)
 
-**Download:** [WP Anti-Spam Comment](https://wordpress.org/plugins/wp-anti-spam-comment/)
+**Download:** [WP Anti-Spam Comment](https://wordpress.org/plugins/anti-spam-comment-shield/)
 
 ---
 
@@ -99,7 +99,7 @@ No. AMP pages do not support the JavaScript required for the anti-spam mechanism
 <details>
 <summary>How can I get support?</summary>
 
-Please [open a support topic](https://wordpress.org/support/plugin/wp-anti-spam-comment/) or visit [rabbitbuilds.com](https://rabbitbuilds.com/contact/). We respond within 24 hours.
+Please [open a support topic](https://wordpress.org/support/plugin/anti-spam-comment-shield/) or visit [rabbitbuilds.com](https://rabbitbuilds.com/contact/). We respond within 24 hours.
 
 </details>
 

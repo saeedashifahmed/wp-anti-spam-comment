@@ -14,7 +14,7 @@ msgstr ""
 "POT-Creation-Date: 2024-02-13 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP Anti-Spam Comment\n"
-"X-Domain: wp-anti-spam-comment\n"
+"X-Domain: anti-spam-comment-shield\n"
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
@@ -31,169 +31,169 @@ msgid "Saeed Ashif Ahmed"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://wordpress.org/plugins/wp-anti-spam-comment/"
+msgid "https://wordpress.org/plugins/anti-spam-comment-shield/"
 msgstr ""
 
 #. Author URI of the plugin
 msgid "https://rabbitbuilds.com/"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Please <strong>clear your page cache</strong> for the protection to take effect."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Settings"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Get Support"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Your comment was blocked by our anti-spam protection. If you believe this is an error, please try again."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Advanced spam protection for WordPress comments"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Total Spam Blocked"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Blocked Today"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Protection Status"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Active"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Last Spam Blocked"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "No spam yet"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "ago"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Protection Modules"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Enable or disable individual spam protection layers."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Hash-Based Verification"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Core"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Blocks bots by requiring a unique hash token in the comment form action URL — only injected via JavaScript when a real user interacts with the page."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Honeypot Trap"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "New"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Adds a hidden field to the comment form that only bots will fill out. Human visitors never see it."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Time-Based Check"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "REST API Protection"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Blocks unauthenticated comment creation through the WordPress REST API endpoint."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Advanced Settings"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Fine-tune the anti-spam behavior."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Minimum Submit Time (seconds)"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Custom Blocked Message"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Save Settings"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Reset to Defaults"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Reset all settings to default?"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "How It Works"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Action URL Removed"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "User Interaction Required"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Multi-Layer Validation"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Spam Blocked"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "spam blocked"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "WP Anti-Spam Comment — Total spam blocked"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Website URL"
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Please wait a moment before submitting your comment."
 msgstr ""
 
-#: wp-anti-spam-comment.php
+#: anti-spam-comment-shield.php
 msgid "Comment blocked by WP Anti-Spam Comment."
 msgstr ""
