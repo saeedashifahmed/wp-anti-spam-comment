@@ -1,10 +1,10 @@
-# WP Anti-Spam Comment
+# Anti-Spam Comment Shield
 
 #### Advanced, lightweight, GDPR-compliant anti-spam protection for WordPress comments. No setup required.
 
 ![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dd/anti-spam-comment-shield?&color=6C5CE7&style=for-the-badge&labelColor=2d3436&cacheSeconds=300) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/anti-spam-comment-shield?style=for-the-badge&labelColor=2d3436&cacheSeconds=300&&color=6C5CE7)
 
-**Download:** [WP Anti-Spam Comment](https://wordpress.org/plugins/anti-spam-comment-shield/)
+**Download:** [Anti-Spam Comment Shield](https://wordpress.org/plugins/anti-spam-comment-shield/)
 
 ---
 
@@ -44,7 +44,7 @@
 
 #### From the WordPress Dashboard:
 1. Go to **Plugins** > **Add New**
-2. Search for **WP Anti-Spam Comment**
+2. Search for **Anti-Spam Comment Shield**
 3. Activate the plugin
 4. **Clear your page cache** if using a caching plugin
 

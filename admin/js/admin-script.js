@@ -1,5 +1,5 @@
 /**
- * WP Anti-Spam Comment — Admin Script
+ * Anti-Spam Comment Shield — Admin Script
  * Animated counters for spam statistics
  */
 (function () {

@@ -1,4 +1,4 @@
-=== WP Anti-Spam Comment ===
+=== Anti-Spam Comment Shield ===
 Contributors: saeedashifahmed
 Donate link: https://rabbitbuilds.com/
 Tags: anti spam, stop spam, comment spam, security, gdpr
@@ -13,7 +13,7 @@ Advanced, lightweight, GDPR-compliant anti-spam protection for WordPress comment
 
 == Description ==
 
-WP Anti-Spam Comment is a fast, reliable anti-spam plugin for the **default WordPress commenting system**. It blocks automated bot submissions using layered validation, while keeping the experience clean for real visitors.
+Anti-Spam Comment Shield is a fast, reliable anti-spam plugin for the **default WordPress commenting system**. It blocks automated bot submissions using layered validation, while keeping the experience clean for real visitors.
 
 == Important ==
 * Clear your page cache after activation or after changing plugin settings.
@@ -44,13 +44,13 @@ WP Anti-Spam Comment is a fast, reliable anti-spam plugin for the **default Word
 To install from the WordPress Dashboard:
 
 1. Go to Plugins menu > Add New
-1. Search for WP Anti-Spam Comment
+1. Search for Anti-Spam Comment Shield
 1. Activate the plugin
 1. If using a page cache, clear/purge the cache
 
 To install manually:
 
-1. Download the WP Anti-Spam Comment plugin
+1. Download the Anti-Spam Comment Shield plugin
 1. Upload to the `/wp-content/plugins/` directory
 1. Activate through the 'Plugins' menu
 1. If using a page cache, clear/purge the cache
@@ -77,7 +77,7 @@ You may use, modify, and redistribute it under the terms of the GNU General Publ
 == Changelog ==
 
 = 2.0.2 =
-* **Major Rebrand** — Renamed from "Forget Spam Comment" to "WP Anti-Spam Comment"
+* **Major Rebrand** — Renamed from "Forget Spam Comment" to "Anti-Spam Comment Shield"
 * **New:** Honeypot trap field for catching bots
 * **New:** Time-based submission check (configurable threshold)
 * **New:** REST API comment protection
@@ -160,4 +160,4 @@ You may use, modify, and redistribute it under the terms of the GNU General Publ
 == Upgrade Notice ==
 
 = 2.0.2 =
-**Major update!** Rebranded as "WP Anti-Spam Comment" with new honeypot, time-check, REST API protection, and modern settings page. Please deactivate and reactivate the plugin, then clear your page cache.
+**Major update!** Rebranded as "Anti-Spam Comment Shield" with new honeypot, time-check, REST API protection, and modern settings page. Please deactivate and reactivate the plugin, then clear your page cache.

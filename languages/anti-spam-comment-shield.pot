@@ -1,5 +1,5 @@
 # Copyright (C) 2024 Saeed Ashif Ahmed
-# This file is distributed under the same license as the WP Anti-Spam Comment plugin.
+# This file is distributed under the same license as the Anti-Spam Comment Shield plugin.
 #, fuzzy
 msgid ""
 msgstr ""
@@ -13,13 +13,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-02-13 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP Anti-Spam Comment\n"
+"X-Generator: Anti-Spam Comment Shield\n"
 "X-Domain: anti-spam-comment-shield\n"
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
 #. Name of the plugin
-msgid "WP Anti-Spam Comment"
+msgid "Anti-Spam Comment Shield"
 msgstr ""
 
 #. Description of the plugin
@@ -183,7 +183,7 @@ msgid "spam blocked"
 msgstr ""
 
 #: anti-spam-comment-shield.php
-msgid "WP Anti-Spam Comment — Total spam blocked"
+msgid "Anti-Spam Comment Shield — Total spam blocked"
 msgstr ""
 
 #: anti-spam-comment-shield.php
@@ -195,5 +195,5 @@ msgid "Please wait a moment before submitting your comment."
 msgstr ""
 
 #: anti-spam-comment-shield.php
-msgid "Comment blocked by WP Anti-Spam Comment."
+msgid "Comment blocked by Anti-Spam Comment Shield."
 msgstr ""
