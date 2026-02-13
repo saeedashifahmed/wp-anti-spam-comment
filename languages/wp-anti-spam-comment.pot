@@ -1,0 +1,199 @@
+# Copyright (C) 2024 Saeed Ashif Ahmed
+# This file is distributed under the same license as the WP Anti-Spam Comment plugin.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Anti-Spam Comment 2.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-anti-spam-"
+"comment\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-02-13 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP Anti-Spam Comment\n"
+"X-Domain: wp-anti-spam-comment\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+
+#. Name of the plugin
+msgid "WP Anti-Spam Comment"
+msgstr ""
+
+#. Description of the plugin
+msgid "Advanced, lightweight, and GDPR-compliant anti-spam protection for WordPress comments. Zero configuration needed — just activate and forget spam forever."
+msgstr ""
+
+#. Author of the plugin
+msgid "Saeed Ashif Ahmed"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wordpress.org/plugins/wp-anti-spam-comment/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://rabbitbuilds.com/"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Please <strong>clear your page cache</strong> for the protection to take effect."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Settings"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Get Support"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Your comment was blocked by our anti-spam protection. If you believe this is an error, please try again."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Advanced spam protection for WordPress comments"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Total Spam Blocked"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Blocked Today"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Protection Status"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Active"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Last Spam Blocked"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "No spam yet"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "ago"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Protection Modules"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Enable or disable individual spam protection layers."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Hash-Based Verification"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Core"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Blocks bots by requiring a unique hash token in the comment form action URL — only injected via JavaScript when a real user interacts with the page."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Honeypot Trap"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "New"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Adds a hidden field to the comment form that only bots will fill out. Human visitors never see it."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Time-Based Check"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "REST API Protection"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Blocks unauthenticated comment creation through the WordPress REST API endpoint."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Advanced Settings"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Fine-tune the anti-spam behavior."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Minimum Submit Time (seconds)"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Custom Blocked Message"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Save Settings"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Reset to Defaults"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Reset all settings to default?"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "How It Works"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Action URL Removed"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "User Interaction Required"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Multi-Layer Validation"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Spam Blocked"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "spam blocked"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "WP Anti-Spam Comment — Total spam blocked"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Website URL"
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Please wait a moment before submitting your comment."
+msgstr ""
+
+#: wp-anti-spam-comment.php
+msgid "Comment blocked by WP Anti-Spam Comment."
+msgstr ""

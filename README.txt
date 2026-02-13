@@ -1,73 +1,91 @@
-=== Forget Spam Comment ===
-Contributors: thegulshankumar
-Donate link: https://ko-fi.com/gulshan
-Tags: anti spam, stop spam, security, gdpr, firewall
-Requires at least: 4.5
-Requires PHP: 5.6
-Tested up to: 6.6.1
-Stable tag: 1.1.8
+=== WP Anti-Spam Comment ===
+Contributors: saeedashifahmed
+Donate link: https://rabbitbuilds.com/
+Tags: anti spam, stop spam, comment spam, security, gdpr
+Requires at least: 5.0
+Requires PHP: 7.4
+Tested up to: 6.7
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The ultimate solution to stop spam comments in the default commenting system of WordPress
+Advanced, lightweight, and GDPR-compliant anti-spam protection for WordPress comments. Zero configuration needed.
 
 == Description ==
 
-The fastest and GDPR compliant Anti-Spam plugin to prevent bot spam in the **Default Commenting System** of WordPress.
+The fastest and most comprehensive GDPR-compliant Anti-Spam plugin to prevent bot spam in the **Default Commenting System** of WordPress. Formerly known as "Forget Spam Comment" — now with multi-layer protection and a modern settings dashboard.
 
 == Important ==
 * Please clear page cache after plugin activation.
-* Only for default commenting system. Not for AMP.
+* Only for the default commenting system. Not for AMP.
 
-= Features  =
-* 100% GDPR Compliant.
-* Captcha-Free solution.
-* Requires no settings.
-* Automatic. No need of false-positive comment moderation.
-* Compatible with all page caching and performance optimization plugins.
-* Fastest ever. A tiny inline JavaScript in just ~200 bytes does all magic.
+= Features =
+* 🛡️ **Hash-Based Verification** — Blocks bots by hiding the comment form action URL
+* 🍯 **Honeypot Trap** — Hidden field that catches bots filling every input
+* ⏱️ **Time-Based Check** — Rejects comments submitted too quickly
+* 🔒 **REST API Protection** — Blocks unauthenticated REST API comments
+* 📊 **Spam Statistics Dashboard** — Real-time total & daily blocked spam counter
+* ⚙️ **Modern Settings Page** — Beautiful card-based UI with toggle switches
+* 🔔 **Admin Bar Counter** — See blocked spam count in the admin bar
+* ✏️ **Custom Block Message** — Personalize the blocked spam response
+* 100% GDPR Compliant — No external requests, no cookies, no tracking
+* Captcha-Free — Completely invisible to your visitors
+* ~200 bytes inline JavaScript — Zero performance impact
+* Compatible with all page caching and performance optimization plugins
 
 = How does it work? =
-To prevent spam comments plugin blocks the default action path (wp-comments-post.php) for bots and make it accessible over unique hash query string when a visitor scroll to leave a comment. This way it prevents automated spam comment done by bots.
-
-**Video Demonstration**
-
-[youtube https://www.youtube.com/watch?v=uwIfk08GSwk]
-Watch on [YouTube](https://www.youtube.com/watch?v=uwIfk08GSwk)
-
-== Let's support each other 🙏 ==
-
-- Please Upvote Forget Spam Comment plugin at [Product Hunt](https://www.producthunt.com/products/forget-spam-comment#forget-spam-comment)
-- You can [contact me](https://www.gulshankumar.net/contact/) to report any issues. I'd be happy to assist.
+1. The comment form action URL is removed from the HTML
+2. Real user interactions (scroll, mouse move, touch, focus) trigger JavaScript to restore the URL with a unique hash token
+3. Server validates the hash, checks the honeypot, and verifies timing
+4. Failed validations get a 403 response — no spam ever reaches your database
 
 == Installation ==
 
-To install this plugin from WordPress Dashboard
+To install from the WordPress Dashboard:
 
-1. Go to Plugins menu > Add new
-1. Search for Forget Spam Comment
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. If you are using any page cache plugin, make sure to purge/clear the cache.
+1. Go to Plugins menu > Add New
+1. Search for WP Anti-Spam Comment
+1. Activate the plugin
+1. If using a page cache, clear/purge the cache
 
-To install this plugin manually
+To install manually:
 
-1. Download the Forget Spam Comment Plugin
-1. Upload `Forget Spam Comment` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. If you are using any page cache plugin, make sure to purge/clear the cache.
+1. Download the WP Anti-Spam Comment plugin
+1. Upload to the `/wp-content/plugins/` directory
+1. Activate through the 'Plugins' menu
+1. If using a page cache, clear/purge the cache
 
 == Frequently Asked Questions ==
 
-= How to test whether this plugin is working or not? =
-Go to any post where comment is enabled and try to post a comment. If comment is posted successfully means everything is working fine. If you see error 400, you just have forgot to clear page cache after plugin activation. If you are still unable to post a comment and page just reload to itself means your theme uses a different comment form ID that has not been included by this plugin. Please create a support topic with your site URL. I will take care of it.
+= How to configure the plugin? =
+Navigate to Settings > WP Anti-Spam to toggle protection modules, set timing thresholds, and view spam statistics.
 
-= Which commenting system is supported by this plugin? =
-Only Default Commenting System of WordPress. Any other commenting system like AMP, Disqus, JetPack Comment, wpDiscuz are not supported.
+= How to test whether the plugin is working? =
+Go to any post where comments are enabled and try posting a comment. If it goes through successfully, everything is working. If you see error 403, clear your page cache. If comments still fail, your theme may use a non-standard comment form ID — please open a support topic.
 
-= How to get technical assistance for this plugin? =
-Kindly allow me a chance to look into your problem by opening a support topic. I will reply in 24 hours.
+= Which commenting system is supported? =
+Only the Default Commenting System of WordPress. Disqus, JetPack Comments, wpDiscuz, and AMP comments are not supported.
+
+= How to get technical assistance? =
+Please open a support topic. We will reply within 24 hours.
 
 == Changelog ==
+
+= 2.0.1 =
+* **Major Rebrand** — Renamed from "Forget Spam Comment" to "WP Anti-Spam Comment"
+* **New:** Honeypot trap field for catching bots
+* **New:** Time-based submission check (configurable threshold)
+* **New:** REST API comment protection
+* **New:** Modern settings page with card-based UI and toggle switches
+* **New:** Real-time spam statistics (total, today, last blocked)
+* **New:** Admin bar spam counter
+* **New:** Custom blocked message setting
+* **New:** Reset to defaults button
+* **New:** Expanded event triggers (scroll + mousemove + touchstart + focus)
+* **New:** Expanded comment form ID selector for more theme compatibility
+* **Improved:** Block response page with modern, branded design
+* **Improved:** Activation notice with modern styling
+* **Updated:** Requires WordPress 5.0+ and PHP 7.4+
 
 = 1.1.8 =
 * Tested with 6.6.1 Updated on 09-Aug-2024.
@@ -122,7 +140,7 @@ Kindly allow me a chance to look into your problem by opening a support topic. I
 = 1.0.3 =
 * Minified inline JS for better performance
 * Translation made available for Hindi, Bengali, English (United States), English (UK).
-* Minor tweaks 
+* Minor tweaks
 
 = 1.0.2 =
 * Added hint for purging cache upon plugin activation
@@ -136,5 +154,5 @@ Kindly allow me a chance to look into your problem by opening a support topic. I
 
 == Upgrade Notice ==
 
-= 1.1.3 =
-**Important Notice:** Kindly clear your page cache after updating to version 1.1.3. This release introduces changes in the query string to enhance our anti-spam mechanism, and clearing the cache is essential for seamless functionality. Should you have any questions, please feel free to reach out. Thank you for your cooperation.
+= 2.0.1 =
+**Major update!** Rebranded as "WP Anti-Spam Comment" with new honeypot, time-check, REST API protection, and modern settings page. Please deactivate and reactivate the plugin, then clear your page cache.
